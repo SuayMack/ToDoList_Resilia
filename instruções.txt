@@ -1,0 +1,21 @@
+api rest - rece um json e envia um json
+
+Os principais verbos HTTP utilizados em uma API REST são:
+
+● GET: Utilizado para recuperar dados ou recursos do servidor. Por exemplo, ao
+fazer uma requisição GET para "/users", espera-se receber a lista de usuários.
+
+● POST: Utilizado para enviar dados ao servidor para processamento ou
+armazenamento. É comumente utilizado para criar recursos. Por exemplo, ao
+enviar uma requisição POST para "/users", é possível criar um novo usuário no
+servidor.
+
+● PUT: Utilizado para atualizar dados ou recursos no servidor. É comumente
+utilizado para modificar um recurso existente. Por exemplo, ao enviar uma
+requisição PUT para "/users/:id", é possível atualizar as informações de um
+usuário específico.
+
+● DELETE: Utilizado para remover um recurso ou dados do servidor. Por
+exemplo, ao enviar uma requisição DELETE para "/users/:id", é possível excluir
+um usuário específico.
+Sobre o exemplo: Cada operação de CRUD utilizará um verbo HTTP diferente.
