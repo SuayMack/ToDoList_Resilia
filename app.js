@@ -1,6 +1,6 @@
 import express from 'express'
-import Usuarios from './controllers/Usuarios.js'
-import TarefasControler from './controllers/Tarefas.js'
+import Usuarios from './src/controllers/Usuarios.js'
+import TarefasControler from './src/controllers/Tarefas.js'
 
 const app = express()
 const port = process.env.PORT | 3000
