@@ -19,3 +19,10 @@ usuário específico.
 exemplo, ao enviar uma requisição DELETE para "/users/:id", é possível excluir
 um usuário específico.
 Sobre o exemplo: Cada operação de CRUD utilizará um verbo HTTP diferente.
+
+
+npm init
+config o package.json(type, start)
+instalar o express
+
+
