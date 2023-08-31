@@ -12,6 +12,10 @@ class TarefasControler {
         {"tarefa":"estudar, correr, dormir"}
       )
     })
+
+    app.post("/tarefas", (req, res) => {
+      res.status(200).json({"tarefa":"estudar, correr, dormir"})
+    })
     
   }
 }

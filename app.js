@@ -1,6 +1,6 @@
 import express from 'express'
 import Usuarios from './src/controllers/UsuariosController.js'
-import TarefasControler from './src/controllers/Tarefas.js'
+import TarefasControler from './src/controllers/TarefasController.js'
 
 /**
  * instância do Express
@@ -15,6 +15,8 @@ const port = process.env.PORT | 3000
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`)
 })
+//*midware* usar sempre depois da const app e antes das rotas
+app.use(express.json())
 
 Usuarios.rotas(app)
 TarefasControler.rotas(app)
