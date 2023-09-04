@@ -26,3 +26,10 @@ config o package.json(type, start)
 instalar o express
 
 
+
+
+
+// app
+//rotas (controller)
+//usuarios metodos
+//database metodos

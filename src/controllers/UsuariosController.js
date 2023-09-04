@@ -1,3 +1,6 @@
+import UsuariosModel from "../models/UsuariosModel"
+import UsuariosMetodos from "../utils/UsuariosMetodos"
+
 class UsuariosControler {
 
   //barra + ** para fazer comentário (JSdoc)
@@ -12,21 +15,22 @@ class UsuariosControler {
    * volta para o cliente, respectivamente.
    */
   static rotas(app) {
-    app.get('/', (req, res) => {
-      res.send('Hello World!')
+    app.get('/usuarios', (req, res) => {
+      const usuario = new UsuariosMetodos.buscarTodosUsuarios()
+      res.send(200).json(usuario)
     })
-    
+    //rota para buscar todos os usuarios
     app.get("/usuarios", (req, res) => {
-      const body = req.body
-      console.log(body)
-      res.status(200).json(body)
+      const body = Object.values(req.body)
+      const usuario = new UsuariosModel(...body)
+      UsuariosMetodos.inserirUsuario(usuario)
+      res.status(200).json({
+        error: false,
+        message: "Usuario criado com sucesso",
+      })
     })
 
     app.post("/usuarios", (req, res) => {
-      res.status(200).json({"usuario":"priscila"})
-    })
-
-    app.put("/usuarios", (req, res) => {
       res.status(200).json({"usuario":"priscila"})
     })
     
