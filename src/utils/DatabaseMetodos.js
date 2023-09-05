@@ -1,13 +1,31 @@
-import Database from "../database/Database,js";
+import Database from "../database/Database.js";
 
-class DatabaseMetodos {
-  static inserir(entidade, data) {
-    Database[entidade].push(data)
-  }  
+class DatabaseMetodos{
+    /**
+     * Método de inserção de dados
+     * @param {string} entidade 
+     * @param {*} data 
+     */
+    static inserir(entidade, data){
+        Database[entidade].push(data)
+    }
 
-  static buscar(entidade) {
-    return Database[entidade]
-  }
+    /**
+     * Método de busca de dados
+     * @param {string} entidade 
+     * @returns {any}
+     */
+    static buscar(entidade){
+        return Database[entidade]
+    }
+
+    static buscarPorId(entidade, id){
+        return Database[entidade][id]
+    }
+
+    static deletarPorId(entidade, id){
+        delete Database[entidade][id]
+    }
 }
 
-export default DatabaseMetodos
+export default DatabaseMetodos;

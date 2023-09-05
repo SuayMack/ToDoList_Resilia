@@ -1,9 +1,9 @@
-import UsuariosModel from "../models/UsuariosModel"
-import UsuariosMetodos from "../utils/UsuariosMetodos"
+import UsuariosModel from "../models/UsuariosModel.js"
+import ValidacaoServices from "../services/ValidacaoServices.js"
+import UsuariosMetodos from "../utils/UsuariosMetodos.js"
 
 class UsuariosControler {
 
-  //barra + ** para fazer comentário (JSdoc)
   /**
    * Método de rotas da entidade usuários
    * recebendo como argumento a instancia do Express
@@ -15,25 +15,46 @@ class UsuariosControler {
    * volta para o cliente, respectivamente.
    */
   static rotas(app) {
-    app.get('/usuarios', (req, res) => {
-      const usuario = new UsuariosMetodos.buscarTodosUsuarios()
-      res.send(200).json(usuario)
-    })
-    //rota para buscar todos os usuarios
-    app.get("/usuarios", (req, res) => {
-      const body = Object.values(req.body)
-      const usuario = new UsuariosModel(...body)
-      UsuariosMetodos.inserirUsuario(usuario)
-      res.status(200).json({
-        error: false,
-        message: "Usuario criado com sucesso",
-      })
-    })
+    /**
+    * Rota para buscar todos os usuários
+    */
+    app.get("/usuarios", (req, res)=>{
+    const usuarios = UsuariosMetodos.buscarTodosOsUsuarios()
+    res.status(200).json(usuarios)
+  })
 
-    app.post("/usuarios", (req, res) => {
-      res.status(200).json({"usuario":"priscila"})
-    })
+  app.get("/usuarios/:id", (req, res)=>{
+    const id = req.params.id
+    const resposta = UsuariosMetodos.buscarUsuarioPorId(id)
+    res.status(200).json(resposta)
+  })
+
+  //Criar a rota apagar no Node.js
+  app.delete("/usuarios/:id", (req, res)=>{
+    const id = req.params.id
+    const isValid = ValidacaoServices.validarExistencia(id)
+    if(isValid){
+      UsuariosMetodos.deletarUsuariosPorId(id)
+      res.status(204).json()
+    }
+      res.status(404).json({error: true, message: "Usuário não encontrado"})
     
+  })
+
+  /**
+ * Rota apra inserir um novo usuário
+ */
+  app.post("/usuarios", (req, res)=>{
+    const body = Object.values(req.body)
+    const usuarioModelado = new UsuariosModel(...body)
+    UsuariosMetodos.inserirUsuario(usuarioModelado)
+    res.status(200).json({
+      error: false,
+      message: "Usuário criado com sucesso"
+    })
+  })
+
+      
   }
 }
 

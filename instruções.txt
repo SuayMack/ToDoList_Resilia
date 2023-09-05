@@ -1,4 +1,8 @@
-api rest - rece um json e envia um json
+//barra + ** para fazer comentário (JSdoc)
+
+
+
+api rest - recebe um json e envia um json
 
 Os principais verbos HTTP utilizados em uma API REST são:
 
@@ -33,3 +37,8 @@ instalar o express
 //rotas (controller)
 //usuarios metodos
 //database metodos
+
+*ordem para criação:*
+database
+usuários
+rotas
