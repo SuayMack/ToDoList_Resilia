@@ -19,27 +19,27 @@ class UsuariosControler {
     * Rota para buscar todos os usuários
     */
     app.get("/usuarios", (req, res)=>{
-    const usuarios = UsuariosMetodos.buscarTodosOsUsuarios()
-    res.status(200).json(usuarios)
-  })
+      const usuarios = UsuariosMetodos.buscarTodosOsUsuarios()
+      res.status(200).json(usuarios)
+    })
 
-  app.get("/usuarios/:id", (req, res)=>{
-    const id = req.params.id
-    const resposta = UsuariosMetodos.buscarUsuarioPorId(id)
-    res.status(200).json(resposta)
-  })
+    app.get("/usuarios/:id", (req, res)=>{
+      const id = req.params.id
+      const resposta = UsuariosMetodos.buscarUsuarioPorId(id)
+      res.status(200).json(resposta)
+    })
 
-  //Criar a rota apagar no Node.js
-  app.delete("/usuarios/:id", (req, res)=>{
-    const id = req.params.id
-    const isValid = ValidacaoServices.validarExistencia(id)
-    if(isValid){
-      UsuariosMetodos.deletarUsuariosPorId(id)
-      res.status(204).json()
-    }
-      res.status(404).json({error: true, message: "Usuário não encontrado"})
-    
-  })
+    //Criar a rota apagar no Node.js
+    app.delete("/usuarios/:id", (req, res)=>{
+      const id = req.params.id
+      const isValid = ValidacaoServices.validarExistencia(id)
+      if(isValid){
+        UsuariosMetodos.deletarUsuariosPorId(id)
+        res.status(204).json()
+      }
+        res.status(404).json({error: true, message: "Usuário não encontrado"})
+      
+    })
 
   /**
  * Rota apra inserir um novo usuário

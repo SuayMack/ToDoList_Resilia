@@ -15,7 +15,9 @@ const port = process.env.PORT | 3000
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`)
 })
+
 //*midware* usar sempre depois da const app e antes das rotas
+// Usar depois do POST
 app.use(express.json())
 
 Usuarios.rotas(app)

@@ -4,7 +4,7 @@ class DatabaseMetodos{
     /**
      * Método de inserção de dados
      * @param {string} entidade 
-     * @param {*} data 
+     * @param {*} data *objeto email, telefone
      */
     static inserir(entidade, data){
         Database[entidade].push(data)

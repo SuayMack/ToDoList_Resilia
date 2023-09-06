@@ -27,16 +27,17 @@ Sobre o exemplo: Cada operação de CRUD utilizará um verbo HTTP diferente.
 
 npm init
 config o package.json(type, start)
+
+npm install nodemon --save-dev     
+
 instalar o express
+npm install express
 
-
-
-
-
-// app
+//app
 //rotas (controller)
 //usuarios metodos
 //database metodos
+
 
 *ordem para criação:*
 database
