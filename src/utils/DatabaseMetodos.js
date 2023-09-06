@@ -23,8 +23,18 @@ class DatabaseMetodos{
         return Database[entidade][id]
     }
 
+    /**
+     * Atualiza um registro específico na base de dados através de um identificador
+     * @param {string} entidade 
+     * @param {string} id
+     * @returns {any}
+     */
     static deletarPorId(entidade, id){
         delete Database[entidade][id]
+    }
+
+    static atualizarPorId(entidade, id, data){
+        Database[entidade][id] = data
     }
 }
 

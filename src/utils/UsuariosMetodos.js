@@ -20,12 +20,21 @@ class UsuariosMetodos extends DatabaseMetodos{
         return this.buscar(USUARIOS_TABELA)
     }
 
+    /**
+     * Atualiza um registro específico da tabela usuários através do identificador
+     * @param {string} id
+     * @param {any} data
+     */
     static buscarUsuariosPorId(id){
         return this.buscar(USUARIOS_TABELA, id)
     }
 
-    static deletarUsuariosPorId(id){
+    static deletarUsuarioPorId(id){
         return this.deletarPorId(USUARIOS_TABELA, id)
+    }
+
+    static AtualizarUsuarioPorId(id, data){
+        this.atualizarPorId(USUARIOS_TABELA, id, data)
     }
 }
 

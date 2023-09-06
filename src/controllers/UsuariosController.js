@@ -25,7 +25,7 @@ class UsuariosControler {
 
     app.get("/usuarios/:id", (req, res)=>{
       const id = req.params.id
-      const resposta = UsuariosMetodos.buscarUsuarioPorId(id)
+      const resposta = UsuariosMetodos.buscarUsuariosPorId(id)
       res.status(200).json(resposta)
     })
 
@@ -34,25 +34,55 @@ class UsuariosControler {
       const id = req.params.id
       const isValid = ValidacaoServices.validarExistencia(id)
       if(isValid){
-        UsuariosMetodos.deletarUsuariosPorId(id)
+        UsuariosMetodos.deletarUsuarioPorId(id)
         res.status(204).json()
       }
         res.status(404).json({error: true, message: "Usuário não encontrado"})
       
     })
 
-  /**
- * Rota apra inserir um novo usuário
- */
-  app.post("/usuarios", (req, res)=>{
-    const body = Object.values(req.body)
-    const usuarioModelado = new UsuariosModel(...body)
-    UsuariosMetodos.inserirUsuario(usuarioModelado)
-    res.status(200).json({
-      error: false,
-      message: "Usuário criado com sucesso"
+    /**
+    * Rota apra inserir um novo usuário
+    */
+    app.post("/usuarios", (req, res)=>{
+      const body = Object.values(req.body)
+      const usuarioModelado = new UsuariosModel(...body)
+      const isValid = ValidacaoServices.validaCamposUsuario(...body)
+        if(isValid){
+          UsuariosMetodos.inserirUsuario(usuarioModelado)
+          res.status(200).json({
+            error: false,
+            message: "Usuário criado com sucesso"
+          })
+        }
+      res.status(400).json({error: true, message: "Campos inválidos"})
     })
-  })
+
+      /**
+      //req - acessar objeto da requisição
+      * Rota para atualizar um usuário
+      * const req = {
+        params:{
+            id: "valor"
+        },
+        body: {}
+      }
+      */
+    app.put("/usuarios/:id", (req, res)=>{
+      const id = req.params.id
+      const body = req.body
+      const exists = ValidacaoServices.validarExistencia(id)
+      const isValid = ValidacaoServices.validaCamposUsuario(body.nome, body.email, body.telefone)
+      if(exists){
+        if(isValid){
+          const usuarioModelado = new UsuariosModel(body.nome, body.email, body.telefone)
+          UsuariosMetodos.AtualizarUsuarioPorId(id, usuarioModelado)
+          res.status(204).json()
+        }
+        res.status(400).json({error: true, message: "Campos inválidos"})
+      }
+      res.status(404).json({error: true, message: `Usuário não encontrado para o id ${id}`})	
+    })
 
       
   }
