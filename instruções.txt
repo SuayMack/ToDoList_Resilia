@@ -43,3 +43,16 @@ npm install express
 database
 usuários
 rotas
+
+SQLITE
+All conduta todos
+Get consulta 1
+Run roda query
+
+
+
+RUN - não precisa de retorno
+
+para retorno:
+get- um
+all - todos
