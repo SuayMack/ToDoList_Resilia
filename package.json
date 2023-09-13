@@ -2,6 +2,7 @@
   "type": "module",
   "dependencies": {
     "express": "^4.18.2",
+    "jest": "^29.7.0",
     "sqlite3": "^5.1.6"
   },
   "name": "todolist",
@@ -11,7 +12,7 @@
     "nodemon": "^3.0.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },

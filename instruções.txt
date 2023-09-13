@@ -56,3 +56,14 @@ RUN - não precisa de retorno
 para retorno:
 get- um
 all - todos
+
+database
+metodos
+controller
+
+
+Rotas no inmsonia
+slide - 
+
+
+DAO - direto no banco de dados

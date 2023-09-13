@@ -1,8 +1,8 @@
-import UsuariosMetodos from "../utils/UsuariosMetodos.js";
+import UsuarioDAO from "../DAO/UsuariosDAO.js";
 
 class ValidacaoServices {
   static validarExistencia(id){
-    const usuario = UsuariosMetodos.buscarUsuariosPorId(id)
+    const usuario = UsuarioDAO.buscarUsuariosPorId(id)
     if(usuario){
       return true
     }else{
@@ -14,7 +14,7 @@ class ValidacaoServices {
   }
 
   static validaEmail(email){
-    return typeof email === "string" && email.length > 2
+    return typeof email === "string" && email.length > 2 && email.includes("@")
   }
 
   static validaTelefone(telefone){
