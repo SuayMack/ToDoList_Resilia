@@ -8,12 +8,12 @@ class DAO{
      */
     static inserir(query, data){
         return new Promise((resolve, reject)=>{
-            Database.run(query, ...data, (error)=>{//...data é um array e não sabemos quantos dados são passados
+            Database.run(query, data, (error)=>{
                 if(error){
                     console.log(error)
                     reject(error)
                 }
-                resolve({error: false})                
+                resolve({error:false})
             })
         })
     }
@@ -23,10 +23,8 @@ class DAO{
      * @param {string} entidade 
      * @returns {any}
      */
-    static buscar(entidade){
-        const query = `
-        SELECT * FROM ${entidade};
-        `
+    static buscar(query){
+
         return new Promise((resolve, reject)=>{
             Database.all(query, (error, rows)=>{
                 if(error){
@@ -44,8 +42,19 @@ class DAO{
      * @param {string} id 
      * @returns {any}
      */
-    static buscarPorId(entidade, id){
-        return Database[entidade][id]
+    static buscarPorId(query, id){
+        return new Promise((resolve, reject)=>{
+            Database.get(query, [id], (error, rows)=>{
+                if(error){
+                    reject(error)
+                } else {
+                    if(!rows){
+                        reject({error: true, message: "Usuário não encontrado para o id"})
+                    }
+                    resolve(rows)
+                }
+            })
+        })
     }
 
     /**
@@ -53,8 +62,16 @@ class DAO{
      * @param {string} entidade 
      * @param {string} id 
      */
-    static deletarPorId(entidade, id){
-        delete Database[entidade][id]
+    static deletarPorId(query, id){
+        return new Promise((resolve, reject)=>{
+            Database.all(query, id, (error, rows)=>{
+                if(error){
+                    reject(error)
+                } else {
+                    resolve(rows)
+                }
+            })
+        })
     }
 
     /**
@@ -63,8 +80,16 @@ class DAO{
      * @param {string} id 
      * @param {any} data 
      */
-    static atualizarPorId(entidade, id, data){
-        Database[entidade][id] = data
+    static atualizarPorId(query, id, data){
+        return new Promise((resolve, reject) => {
+            Database.run(query, [...data, id], (error, rows) => {
+                if(error){
+                    reject(error)
+                } else {
+                    resolve(rows)
+                }
+            })
+        })
     }
 }
 

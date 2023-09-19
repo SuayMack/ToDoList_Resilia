@@ -1,24 +1,35 @@
-import express from 'express'
-import Usuarios from './src/controllers/UsuariosController.js'
-import TarefasControler from './src/controllers/TarefasController.js'
+import express from "express";
+// const express = require("express")
+import cors from "cors";
+import { config } from "dotenv";
+import UsuariosController from "./src/controllers/UsuariosController.js";
 
+
+config()
 /**
- * instância do Express
- * inicialização do que foi importado
+ * Instancia do express
+ * (inicialização do que foi importado)
  */
 const app = express()
 /**
- * varável de alocação de porta
+ * Váriável de alocação de porta
  */
-const port = process.env.PORT | 3000
+const port = process.env.PORT || 3000
 
-app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`)
+/**
+ * Levante do servidor da API.
+ */
+app.listen(port, ()=>{
+    console.log(`Servidor disponível em http://localhost:${port}`)
 })
 
-//*midware* usar sempre depois da const app e antes das rotas
-// Usar depois do POST
+/**
+ * Middleware para reconhecimento do formato JSON para a aplicação
+ */
 app.use(express.json())
 
-Usuarios.rotas(app)
-TarefasControler.rotas(app)
+app.use(cors('*'))
+/** 
+ * Chamada das rotas do controller
+*/
+UsuariosController.rotas(app)

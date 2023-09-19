@@ -1,19 +1,16 @@
 import UsuariosModel from "../models/UsuariosModel.js";
 import DAO from "./DAO.js";
 
-const USUARIOS_TABELA = "USUARIOS"
 
 class UsuariosDAO extends DAO{
     /**
      * Método de inserção de dados da tabela Usuários
      * @param {UsuariosModel} data 
      */
-    //query sanitizada
     static async inserirUsuario(data){
-        const dataValues = Object.values(data)//Pega os valores do objeto e grada dentro de um array
-        //criação de query para inserção de dados
+        const dataValues = Object.values(data)
         const query = `
-            INSERT INTO USUARIOS (NOME, EMAIL, TELEFONE) VALUES (?, ?, ?)
+        INSERT INTO USUARIOS (NOME, EMAIL, TELEFONE) VALUES (?,?,?)
         `
         const result = await this.inserir(query, dataValues)
         return result
@@ -24,7 +21,10 @@ class UsuariosDAO extends DAO{
      * @returns {Array<UsuariosModel>}
      */
     static async buscarTodosOsUsuarios(){
-        return await this.buscar(USUARIOS_TABELA)
+        const query = `
+        SELECT * FROM USUARIOS;
+        `
+        return await this.buscar(query)
     }
 
     /**
@@ -32,16 +32,31 @@ class UsuariosDAO extends DAO{
      * @param {string} id 
      * @returns {UsuariosModel}
      */
-    static buscarUsuarioPorId(id){
-        return this.buscarPorId(USUARIOS_TABELA, id)
+    static async buscarUsuarioPorId(id){
+        const query = `
+        SELECT * FROM USUARIOS where ID = ?;
+        `
+            try {
+                const response = await this.buscarPorId(query, id)
+                return response
+            } catch (error) {
+                throw error
+            }
+
     }
 
     /**
      * Método de deleção de registros específicos na tabela Usuários através de um identificador
      * @param {string} id 
      */
-    static deletarUsuarioPorId(id){
-        this.deletarPorId(USUARIOS_TABELA, id)
+    static async deletarUsuarioPorId(id){
+        const query = "DELETE FROM USUARIOS WHERE ID = ?"
+        try {
+            await this.deletarPorId(query, id)
+        } catch (error) {
+            throw error
+        }
+
     }
 
     /**
@@ -49,8 +64,14 @@ class UsuariosDAO extends DAO{
      * @param {string} id 
      * @param {any} data 
      */
-    static AtualizarUsuarioPorId(id, data){
-        this.atualizarPorId(USUARIOS_TABELA, id, data)
+    static async AtualizarUsuarioPorId(id, data){
+        const query = "UPDATE USUARIOS SET (ID, NOME, EMAIL, TELEFONE) = (?,?,?,?) WHERE ID = ?"
+        const values = Object.values(data)
+        try {            
+            await this.atualizarPorId(query, id, [id ,...values])
+        } catch (error) {
+            throw error
+        }
     }
 }
 

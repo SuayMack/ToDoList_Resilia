@@ -50,6 +50,7 @@ function populaTabelaUsuarios() {
     });
 }
 
+
 /**
  * Roda as funções de criação de tabela e população em serie (Uma após a outra)
  */

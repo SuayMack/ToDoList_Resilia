@@ -14,4 +14,5 @@ class UsuariosModel{
       this.telefone = telefone
   }
 }
+
 export default UsuariosModel
